@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const CheckoutSuccess = () => {
   return (
-    <div className='bg-gray-100 h-screen'>
       <div className='bg-white p-6 md:mx-auto'>
         <svg 
         viewBox='0 0 24 24'
@@ -21,14 +20,13 @@ const CheckoutSuccess = () => {
             <div className='py-10 text-center'>
                 <Link
                     to='/home'
-                    className='px-12 bg-buttonBgColor text-white font-semibold py-3'
+                    className='px-12 bg-buttonColor text-black font-semibold py-3'
                 >
                     Go Back to Home
                 </Link>
             </div>
         </div>
       </div>
-    </div>
   )
 }
 

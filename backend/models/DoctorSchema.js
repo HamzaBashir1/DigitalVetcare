@@ -38,6 +38,10 @@ const DoctorSchema = new mongoose.Schema({
     enum: ["pending", "approved", "cancelled"],
     default: "pending",
   },
+
+  gender: { type: String, enum: ["male", "female", "other"] },
+  specialization: { type: String },
+
   appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],
 });
 

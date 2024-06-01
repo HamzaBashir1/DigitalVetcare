@@ -1,41 +1,39 @@
-
-import { useEffect, useState } from 'react';
-import { token } from '../config.js';
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const useFetchData = (url) => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
+  const { token } = useContext(AuthContext);
 
-                const res = await fetch(url,
-                    {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-                );
-                
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-                const result = await res.json();
+        const res = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-                if (!res.ok) {
-                    throw new Error(result.message);
-                }
+        if (!res.ok) {
+          throw Error(res.statusText);
+        }
 
-                setData(result.data);
-                setLoading(false);
-            } catch (err) {
-                setLoading(false);
-                setError(err.message);
-            }
-        };
-        fetchData();
-    }, [url]);
+        const result = await res.json();
+        setData(result.data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+        setError(err.message);
+      }
+    };
+    if (url != null && token) fetchData();
+  }, [url, token]);
 
-    return { data, loading, error };
+  return { data, loading, error };
 };
 
 export default useFetchData;
