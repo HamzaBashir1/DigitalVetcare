@@ -9,7 +9,7 @@ const SidePanel = ({ doctorId, ticketPrice, timeSlots }) => {
   const bookingHandler = async () => {
     try {
       const res = await fetch(`${Base_URL}/booking/checkout-session/${doctorId}`, {
-        method: "post",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
