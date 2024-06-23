@@ -146,7 +146,7 @@ const Profile = ({ doctorData }) => {
       startingDate: "",
       endingDate: "",
       position: "Senior Surgeon",
-      hospital: "Dhaka Medical",
+      hospital: "Superior University",
     });
   };
 
@@ -301,8 +301,8 @@ const Profile = ({ doctorData }) => {
                     <p className="form_label">Degree*</p>
                     <input
                       type="text"
-                      name="startingDate"
-                      value={item.startingDate}
+                      name="degree"
+                      value={item.degree}
                       className="form_input"
                       onChange={(e) => handleQualificationChange(e, index)}
                     />
