@@ -127,7 +127,7 @@ const Profile = ({ doctorData }) => {
       startingDate: "",
       endingDate: "",
       degree: "PHD",
-      university: "Dhaka Medical College",
+      university: "Superior University",
     });
   };
 

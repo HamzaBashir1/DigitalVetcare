@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import MyBooking from "./MyBooking";
 import Profile from "./Profile";
 import useFetchData from "../../hooks/useFetchData";
-import { Base_URL } from "../../config";
+import { Base_URL, token } from "../../config";
 import Loading from "../../components/Loader/Loading.jsx";
 import Error from "../../components/Error/Error.jsx";
 
@@ -20,6 +20,33 @@ const MyAccount = () => {
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await fetch(`${Base_URL}/users/${user?._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // include the token in the Authorization header
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          dispatch({ type: "LOGOUT" });
+        } else {
+          console.log("Error deleting account");
+        }
+      } else {
+        console.log("Error deleting account:", response.status, response.statusText);
+      }
+    } catch (error) {
+      console.log("Error deleting account", error);
+    }
+  };
+
+
   return (
     <section>
       <div className="max-w-[1170px] px-5 mx-auto">
@@ -49,7 +76,9 @@ const MyAccount = () => {
                 >
                   Logout
                 </button>
-                <button className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
+                <button 
+                onClick={handleDeleteAccount}
+                className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
                   Delete Account
                 </button>
               </div>

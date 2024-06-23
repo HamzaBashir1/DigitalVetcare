@@ -1,15 +1,45 @@
 import { useContext } from "react";
 import { BiMenu } from "react-icons/bi";
 import { AuthContext } from "../../context/AuthContext";
+import { Base_URL, token } from "../../config";
 // import { useNavigate } from 'react-router-dom'
 
 const Tabs = ({ tab, setTab }) => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch, user } = useContext(AuthContext);
   // const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
+  const handleDeleteAccount = async () => {
+
+    const doctor = user;
+
+    if (!doctor || !doctor._id) {
+      console.log("Doctor object is not available or does not have an _id property");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${Base_URL}/doctors/${doctor._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        dispatch({ type: "LOGOUT" });
+      } else {
+        console.log("Error deleting account");
+      }
+    } catch (error) {
+      console.log("Error deleting account", error);
+    }
+  };
+
+  
   return (
     <div>
       <span className="lg:hidden">
@@ -51,7 +81,9 @@ const Tabs = ({ tab, setTab }) => {
           >
             Logout
           </button>
-          <button className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
+          <button 
+          onClick={handleDeleteAccount}
+          className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
             Delete Account
           </button>
         </div>
