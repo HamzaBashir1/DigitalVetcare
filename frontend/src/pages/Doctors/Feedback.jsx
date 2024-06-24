@@ -4,7 +4,7 @@ import { formateDate } from '../../utils/formateDate'
 import {AiFillStar} from 'react-icons/ai'
 import FeedbackForm from './FeedbackForm'
 const Feedback = ({reviews, totalRating}) => {
-    const [showFeedbackForm, setShowFeedbackForm] = useState(false)
+    const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   return (
     <div>
       <div className='mb-[50px]'>

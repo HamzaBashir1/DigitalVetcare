@@ -21,7 +21,7 @@ const DoctorDetails = () => {
     qualifications,
     experiences,
     timeSlots,
-    review,
+    reviews,
     bio,
     about,
     averageRating,
@@ -98,9 +98,14 @@ const DoctorDetails = () => {
 
               <div className="mt-[50px]">
                 {tab === "about" && (
-                  <DoctorAbout name={name} about={about} qualifications={qualifications} experiences={experiences} />
+                  <DoctorAbout 
+                  name={name} 
+                  about={about} 
+                  qualifications={qualifications} 
+                  experiences={experiences} />
                 )}
-                {tab === "feedback" && <Feedback review={review} totalRating={totalRating} />}
+                {tab === "feedback" && 
+                <Feedback reviews={reviews} totalRating={totalRating} />}
               </div>
             </div>
             <div>
